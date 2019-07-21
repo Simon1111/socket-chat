@@ -26,9 +26,6 @@ class Chat extends React.Component {
       this.state.socket.emit('message', {
         message: event.target.value
       });
-      // this.setState({
-      //   messages: [event.target.value, ...this.state.messages]
-      // });
       event.target.value = '';
     }
   };

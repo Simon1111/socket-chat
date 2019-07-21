@@ -24,11 +24,10 @@ const
 app.use(serve(__dirname + '/public'));
 app.use(require('webpack-hot-middleware')(webpack(webpackConfig)));
   
-
 io.on('connection', client => {
     client.on('message', req => {
         console.log(req)
-        io.to(req.message).emit('message', req.message);
+        client.emit('message', req.message);
     });
 });
 
