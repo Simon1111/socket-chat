@@ -1,6 +1,7 @@
 import React from 'react';
 import Chat from './components/Chat';
 import io from 'socket.io-client';
+import '../assets/main.scss';
 
 class App extends React.Component {
   constructor(props) {
@@ -9,13 +10,13 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.socket = io('http://localhost:3000/');
+    this.socket = io('/');
   }
 
   render () {
     return <Chat
-      socket={this.socket}
-    />;
+        socket={this.socket}
+      />;
   }
 }
 

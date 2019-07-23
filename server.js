@@ -1,9 +1,9 @@
 // connection DB
 const options = {
-    client: 'mysql2',
+    client: 'pg',
     connection: {
-        host: '127.0.0.1',
-        user: 'postgress',
+        host: 'localhost',
+        user: 'postgres',
         password: '1',
         database: 'chat'
     }
@@ -25,18 +25,20 @@ app.use(serve(__dirname + '/public'));
 app.use(require('webpack-hot-middleware')(webpack(webpackConfig)));
   
 io.on('connection', client => {
+    client.join('messages');
     client.on('message', req => {
-        console.log(req)
-        client.emit('message', req.message);
+        insertInto(req);
+        io.to('messages').emit('message', req.message);
     });
 });
 
-// вставляю значение базу
+// add value to database
 function insertInto(req){
-    // knex('messages').insert(req)
-    //     .then(() => {
-    //         res.json({ success: true, message: 'ok' });
-    //     });
+    req.idroom = 'messages';
+    knex.insert([req], ['id']).into('messages')
+        .then(() => {
+            console.log('result:', { success: true, message: req })
+        });
 }
 
 server.listen(3000);

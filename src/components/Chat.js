@@ -10,10 +10,7 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    this.state.socket.emit('message', {message: '123'});
-
     this.state.socket.on('message', message => {
-      console.log(message)
       this.setState({
         messages: [message, ...this.state.messages]
       });
@@ -22,7 +19,6 @@ class Chat extends React.Component {
   
   submitMessage = event => {
     if (event.keyCode === 13 && event.target.value !== '') {
-      // console.log(event.target.value);
       this.state.socket.emit('message', {
         message: event.target.value
       });
@@ -34,12 +30,12 @@ class Chat extends React.Component {
     return (<div>
       <ul className="chat__messages">
         {this.state.messages.map((message, index) => (
-          <li>
+          <li className="chat__messages--message">
             {message}
           </li>
         ))}
       </ul>
-      <input type="text" onKeyUp={this.submitMessage} />
+      <input className="chat__messages--box" type="text" onKeyUp={this.submitMessage} placeholder="Your message" />
     </div>
     );
   }

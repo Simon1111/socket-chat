@@ -1,0 +1,32 @@
+*{
+    box-sizing: border-box;
+    font-family: Arial !important;
+}
+body {
+    background-color: azure;
+}
+.chat{
+    &__messages{
+        bottom: 0;
+        left: 0;
+        max-height: 100%;
+        padding-bottom: 50px;
+        padding-top: 5px;
+        padding-left: 1rem;
+        overflow-y: scroll;
+        width: 100%;
+        &--message{
+            color: cadetblue;
+            padding: 5px 0;
+        }
+        &--box{
+            bottom: 0;
+            border-top: 1px solid #c1afaf;
+            left: 0;
+            padding: 0 20px;
+            position: fixed;
+            height: 50px;
+            width: 100%;
+        }
+    }
+}
