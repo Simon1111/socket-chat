@@ -1,2 +1,5 @@
 # socket-chat
-tz
+
+# start
+use npm run build
+use commant node server.js
