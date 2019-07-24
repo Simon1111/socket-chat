@@ -1,4 +1,4 @@
-// var webpack = require("webpack")
+var path = require("path")
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 // var OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 
@@ -24,6 +24,9 @@ module.exports = {
               })
             }
         ]
+    },
+    resolve: {
+        // '@': path.join(__dirname, 'src/')
     },
     plugins: [
         new ExtractTextPlugin("bundle.css")
