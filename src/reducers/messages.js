@@ -1,19 +1,8 @@
-export default function () {
-    return [
-        {
-            id: 1,
-            name: 'Grizzly',
-            height: 250
-        },
-        {
-            id: 2,
-            name: 'Panda',
-            height: 221
-        },
-        {
-            id: 3,
-            name: 'White',
-            height: 300
-        }
-    ]
+export default (state = [], action) => {
+    switch (action.type) {
+        case 'ADD_MESSAGE':
+            return [...state, action.payload];
+        default:
+            return state;
+    }
 }

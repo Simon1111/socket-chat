@@ -1,9 +1,8 @@
-import {combineReducers} from 'redux';
-import MessagesReducers from './messages';
+import { combineReducers } from 'redux';
+import messages from './messages';
 
 const allReducers = combineReducers({
-    messages: MessagesReducers,
-    tech: "React "
+    messages: messages
 });
 
 export default allReducers;
