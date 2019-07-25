@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addMessage } from '../actions/addMessage';
+import { loadMessages } from '../actions/loadMessages';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
+    if (!this.props.messages.length) this.props.loadMessages();
     this.state.socket.on('message', message => {
       this.props.addMessage(message);
     });
@@ -49,7 +51,10 @@ const mapStateToProps = state => {
 }
 
 const matchDispatchToProps = dispatch => {
-  return bindActionCreators({addMessage: addMessage}, dispatch);
+  return bindActionCreators(
+    {addMessage: addMessage, loadMessages: loadMessages},
+    dispatch
+  );
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Chat);
