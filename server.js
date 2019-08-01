@@ -8,11 +8,9 @@ const options = {
         database: 'chat'
     }
 }
-const webpack = require('webpack');
-// const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackConfig = require('./webpack.config.js');
-
-const 
+const webpack = require('webpack'),
+    webpackDevMiddleware = require('webpack-dev-middleware'),
+    webpackConfig = require('./webpack.config.js'),
     knex = require('knex')(options),
     Koa = require('koa'),
     router = require('koa-router')(),
@@ -31,12 +29,6 @@ knex.schema.hasTable('messages').then(exists => {
         });
     }
 });
-// app.use(
-//     webpackDevMiddleware(webpack(webpackConfig), {
-//         noInfo: true,
-//         publicPath: webpackConfig.output.publicPath
-//     })
-// );
 
 io.on('connection', client => {
     client.join('messages');
@@ -66,6 +58,12 @@ function insertInto(req){
 
 app.use(serve(__dirname + '/public'))
     .use(router.routes())
+    .use(
+        webpackDevMiddleware(webpack(webpackConfig), {
+            noInfo: true,
+            publicPath: webpackConfig.output.publicPath
+        })
+    )
     .use(require('webpack-hot-middleware')(webpack(webpackConfig)))
  
 server.listen(process.env.PORT | 3000);

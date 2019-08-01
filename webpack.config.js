@@ -3,9 +3,9 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 // var OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 
 module.exports = {
-    entry: [__dirname +'/src/index.js'],
+    entry: [__dirname +'/src/index.js', 'webpack-hot-middleware/client'],
     output: {
-      path: __dirname + '/public',
+      path: path.resolve(__dirname, 'public'),
       filename: 'bundle.js'
     },
     devtool: 'source-maps',
