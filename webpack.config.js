@@ -1,9 +1,10 @@
-var path = require("path")
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var webpack = require("webpack"),
+    path = require("path"),
+    ExtractTextPlugin = require("extract-text-webpack-plugin");
 // var OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 
 module.exports = {
-    entry: [__dirname +'/src/index.js', 'webpack-hot-middleware/client'],
+    entry: [__dirname +'/src/index.js', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000' ],
     output: {
       path: path.resolve(__dirname, 'public'),
       filename: 'bundle.js'
@@ -29,7 +30,14 @@ module.exports = {
         // '@': path.join(__dirname, 'src/')
     },
     plugins: [
-        new ExtractTextPlugin("bundle.css")
+        new ExtractTextPlugin("bundle.css"),
+        new webpack.DefinePlugin({
+            "process.env": {
+                NODE_ENV: JSON.stringify("production")
+            }
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
     ]
   }
   
