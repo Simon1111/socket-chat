@@ -1,17 +1,9 @@
 // connection DB
-const options = {
-    client: 'pg',
-    connection: {
-        host: 'localhost',
-        user: 'postgres',
-        password: '1',
-        database: 'chat'
-    }
-}
-const webpack = require('webpack'),
+const options = require('./knexfile'),
+    webpack = require('webpack'),
     webpackDevMiddleware = require('webpack-dev-middleware'),
     webpackConfig = require('./webpack.config.js'),
-    knex = require('knex')(options),
+    knex = require('knex')(options.development),
     Koa = require('koa'),
     router = require('koa-router')(),
     http = require('http'),
@@ -19,16 +11,6 @@ const webpack = require('webpack'),
     serve = require('koa-static'),
     server = http.createServer(app.callback()),
     io = require('socket.io')(server);
-
-knex.schema.hasTable('messages').then(exists => {
-    if (!exists) {
-        return knex.schema.createTable('messages', t => {
-            t.increments('id').primary();
-            t.string('message', 100);
-            t.string('idroom', 100);
-        });
-    }
-});
 
 io.on('connection', client => {
     client.join('messages');
