@@ -20,13 +20,8 @@ io.on('connection', client => {
     });
 });
 
-let messages;
-knex.select().from('messages').timeout(1000).then(res => {
-    messages = JSON.stringify(res);
-});
-
 router.get('/api', async (ctx, next) => {
-    ctx.body = messages;
+    ctx.body = JSON.stringify(await knex.select().from('messages'));
 });
 
 // add value to database
